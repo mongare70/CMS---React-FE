@@ -1,0 +1,66 @@
+.control p {
+  color: red;
+}
+
+.container {
+  display: block;
+  background: #aed2fb;
+  border-radius: 10px;
+  opacity: 0.5;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  width: 30%;
+  height: auto;
+}
+
+.title {
+  letter-spacing: 0;
+  text-align: center;
+  color: #14a0eb;
+  font-weight: bold;
+}
+
+.control label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.control input {
+  display: block;
+  font: inherit;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  padding: 0.25rem;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.actions {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.actions button {
+  font: inherit;
+  cursor: pointer;
+  background-color: #21a5ff;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.actions button:hover,
+.actions button:active {
+  background-color: #0b1fd4;
+  border-color: #a50e48;
+}
+
+.doyou {
+  margin-top: 1rem;
+  text-align: center;
+}
