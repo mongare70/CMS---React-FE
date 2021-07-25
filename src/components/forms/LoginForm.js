@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
-import validate from "./ValidateNewAccountForm";
-import classes from "./NewAccountForm.module.css";
+import validate from "./ValidateLoginForm";
+import classes from "./LoginForm.module.css";
 
-function NewAccountForm(props) {
+function LoginForm(props) {
   const [values, setValues] = useState({
     username: "",
-    email: "",
     password: "",
   });
 
@@ -30,28 +29,25 @@ function NewAccountForm(props) {
   }
 
   const usernameInputRef = useRef();
-  const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
   useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmitting) {
       const enteredUsername = usernameInputRef.current.value;
-      const enteredEmail = emailInputRef.current.value;
       const enteredPassword = passwordInputRef.current.value;
 
       const userData = {
         username: enteredUsername,
-        email: enteredEmail,
         password: enteredPassword,
       };
 
-      props.onAddUser(userData);
+      props.onLoginUser(userData);
     }
   });
 
   return (
     <div className={classes.container}>
-      <h1 className={classes.title}>Create New Account</h1>
+      <h1 className={classes.title}>Log In</h1>
       <form autoComplete="off" onSubmit={submitHandler}>
         <div className={classes.control}>
           <input
@@ -69,20 +65,6 @@ function NewAccountForm(props) {
         </div>
         <div className={classes.control}>
           <input
-            type="email"
-            placeholder="Email"
-            id="email"
-            name="email"
-            value={values.email}
-            onChange={handleChange}
-            ref={emailInputRef}
-          />
-          <div className={classes.errors}>
-            {errors.email && <p>{errors.email}</p>}
-          </div>
-        </div>
-        <div className={classes.control}>
-          <input
             type="password"
             placeholder="Password"
             id="password"
@@ -96,16 +78,21 @@ function NewAccountForm(props) {
           </div>
         </div>
         <div className={classes.actions}>
-          <button type="submit">Register</button>
+          <button type="submit">Login</button>
         </div>
         <div className={classes.doyou}>
           <label>
-            Already have an account? <Link to="/login">Log in</Link>
+            <Link to="#">Forgot password?</Link>
           </label>
+        </div>
+        <div className={classes.actions2}>
+          <button>
+            <Link to="/register">Register New Account</Link>
+          </button>
         </div>
       </form>
     </div>
   );
 }
 
-export default NewAccountForm;
+export default LoginForm;

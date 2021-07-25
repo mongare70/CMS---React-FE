@@ -62,4 +62,39 @@
 .doyou {
   margin-top: 1rem;
   text-align: center;
+  color: black;
+}
+
+.doyou a {
+  text-decoration: none;
+  color: black;
+}
+
+.doyou a:hover {
+  color: white;
+}
+
+.actions2 {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.actions2 a {
+  text-decoration: none;
+  color: black;
+}
+
+.actions2 button {
+  font: inherit;
+  cursor: pointer;
+  background-color: white;
+  padding: 0.5rem;
+  font-weight: bold;
+  width: 300px;
+  height: 50px;
+}
+
+.actions2 button:hover,
+.actions2 button:active {
+  background-color: #21a5ff;
 }
