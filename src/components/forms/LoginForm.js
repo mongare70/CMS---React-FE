@@ -32,18 +32,27 @@ function LoginForm(props) {
   const passwordInputRef = useRef();
 
   useEffect(() => {
-    if (Object.keys(errors).length === 0 && isSubmitting) {
-      const enteredUsername = usernameInputRef.current.value;
-      const enteredPassword = passwordInputRef.current.value;
+    function doSomething(errors, isSubmitting, props) {
+      if (Object.keys(errors).length === 0 && isSubmitting) {
+        const enteredUsername = usernameInputRef.current.value;
+        const enteredPassword = passwordInputRef.current.value;
 
-      const userData = {
-        username: enteredUsername,
-        password: enteredPassword,
-      };
+        const userData = {
+          username: enteredUsername,
+          password: enteredPassword,
+        };
 
-      props.onLoginUser(userData);
+        props.onLoginUser(userData);
+
+        setValues({
+          username: "",
+          password: "",
+        });
+      }
     }
-  });
+
+    doSomething(errors, isSubmitting, props);
+  }, [errors, isSubmitting, props]);
 
   return (
     <div className={classes.container}>
@@ -85,12 +94,12 @@ function LoginForm(props) {
             <Link to="#">Forgot password?</Link>
           </label>
         </div>
-        <div className={classes.actions2}>
-          <button>
-            <Link to="/register">Register New Account</Link>
-          </button>
-        </div>
       </form>
+      <div className={classes.actions2}>
+        <Link to="/register">
+          <button>Register New Account</button>
+        </Link>
+      </div>
     </div>
   );
 }

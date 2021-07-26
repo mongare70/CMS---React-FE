@@ -28,8 +28,8 @@
   margin-bottom: 1rem;
   border: 1px solid #ccc;
   padding: 0.25rem;
-  width: 300px;
-  height: 50px;
+  width: 295px;
+  height: 40px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -52,6 +52,7 @@
   font-weight: bold;
   width: 300px;
   height: 50px;
+  border: none;
 }
 
 .actions button:hover,
@@ -89,9 +90,9 @@
   cursor: pointer;
   background-color: white;
   padding: 0.5rem;
-  font-weight: bold;
   width: 300px;
   height: 50px;
+  border: none;
 }
 
 .actions2 button:hover,

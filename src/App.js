@@ -5,6 +5,7 @@ import RegistrationPage from "./pages/Registration";
 import LoginPage from "./pages/Login";
 import DashboardPage from "./pages/Dashboard";
 import HomePage from "./pages/Home";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
         </Route>
         <Route path="/dashboard">
           <DashboardPage />
+        </Route>
+        <Route path="/profile">
+          <Profile />
         </Route>
       </Switch>
     </Layout>

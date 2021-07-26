@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import UserDashboard from "../components/layouts/UserDashboard";
-
+import ProfileForm from "../components/forms/ProfileForm";
+import MainNavigation from "../components/layouts/MainNavigation";
 import Login from "./Login";
 
-function Dashboard() {
+function Profile() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -22,10 +22,17 @@ function Dashboard() {
   }, []);
 
   if (isLoggedIn) {
-    return <UserDashboard />;
+    return (
+      <div>
+        <section>
+          <MainNavigation />
+          <ProfileForm />
+        </section>
+      </div>
+    );
   } else {
     return <Login />;
   }
 }
 
-export default Dashboard;
+export default Profile;
