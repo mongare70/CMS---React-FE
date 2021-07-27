@@ -1,20 +1,37 @@
 import classes from "./ProfileForm.module.css";
-// import validate from "./ValidateProfileForm";
+import validate from "./ValidateProfileForm";
 
-// import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import { useHistory } from "react-router";
 
-function ProfileForm() {
+function ProfileForm(props) {
+  const history = useHistory();
+
+  function deleteAccountHandler() {
+    fetch("/api/deleteUser", {
+      method: "POST",
+      body: JSON.stringify(props.usernameHandler),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .then(() => {
+        history.replace("/");
+        alert("Account deleted successfully!");
+      });
+  }
+
   const [values, setValues] = useState({
     firstname: "",
     lastname: "",
-    username: "",
     email: "",
     password: "",
   });
 
   const [errors, setErrors] = useState({});
-  //   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -24,12 +41,74 @@ function ProfileForm() {
     });
   }
 
-  const firstnameInputRef = useRef();
+  function submitHandler(event) {
+    event.preventDefault();
+
+    setErrors(validate(values));
+    setIsSubmitting(true);
+  }
+
   const usernameInputRef = useRef();
+  const firstnameInputRef = useRef();
+  const lastnameInputRef = useRef();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
-  function submitHandler() {}
+  useEffect(() => {
+    function doSomething(errors, isSubmitting, props) {
+      if (Object.keys(errors).length === 0 && isSubmitting) {
+        const enteredFirstName = firstnameInputRef.current.value;
+        const enteredLastName = lastnameInputRef.current.value;
+        const displayedUsername = usernameInputRef.current.value;
+        const enteredEmail = emailInputRef.current.value;
+        const enteredPassword = passwordInputRef.current.value;
+
+        const newUserData = {
+          firstname: enteredFirstName,
+          lastname: enteredLastName,
+          username: displayedUsername,
+          email: enteredEmail,
+          password: enteredPassword,
+        };
+
+        props.onChangeUserData(newUserData);
+        setValues({
+          firstname: "",
+          lastname: "",
+          email: "",
+          password: "",
+        });
+      }
+    }
+    doSomething(errors, isSubmitting, props);
+  }, [errors, isSubmitting, props]);
+
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    function getUserDataHandler(username) {
+      fetch("/api/getUserData", {
+        method: "POST",
+        body: JSON.stringify(username),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          setFirstname(data.firstname);
+          setLastname(data.lastname);
+          setUsername(data.username);
+          setEmail(data.email);
+        });
+    }
+
+    getUserDataHandler(props.usernameHandler);
+  }, [props.usernameHandler]);
 
   return (
     <div className={classes.container}>
@@ -41,6 +120,7 @@ function ProfileForm() {
             type="text"
             id="firstname"
             name="firstname"
+            placeholder={firstname}
             value={values.firstname}
             onChange={handleChange}
             ref={firstnameInputRef}
@@ -55,9 +135,10 @@ function ProfileForm() {
             type="text"
             id="lastname"
             name="lastname"
+            placeholder={lastname}
             value={values.lastname}
             onChange={handleChange}
-            ref={usernameInputRef}
+            ref={lastnameInputRef}
           />
           <div className={classes.errors}>
             {errors.lastname && <p>{errors.lastname}</p>}
@@ -69,13 +150,11 @@ function ProfileForm() {
             type="text"
             id="username"
             name="username"
-            value={values.username}
-            onChange={handleChange}
+            placeholder={username}
+            value={props.usernameHandler}
             ref={usernameInputRef}
+            disabled
           />
-          <div className={classes.errors}>
-            {errors.username && <p>{errors.username}</p>}
-          </div>
         </div>
         <div className={classes.control}>
           <label htmlFor="email">Email:</label>
@@ -83,6 +162,7 @@ function ProfileForm() {
             type="email"
             id="email"
             name="email"
+            placeholder={email}
             value={values.email}
             onChange={handleChange}
             ref={emailInputRef}
@@ -110,7 +190,7 @@ function ProfileForm() {
         </div>
       </form>
       <div className={classes.doyou}>
-        <button>Delete Account</button>
+        <button onClick={deleteAccountHandler}>Delete Account</button>
       </div>
     </div>
   );

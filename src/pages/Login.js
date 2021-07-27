@@ -1,4 +1,4 @@
-import LoginForm from "../components/forms/LoginForm";
+import LoginForm from "../components/forms/login/LoginForm";
 import { useHistory } from "react-router";
 
 function Login() {
@@ -18,7 +18,8 @@ function Login() {
         if (data.login === true) {
           history.replace("/dashboard");
         } else {
-          history.replace("/login");
+          history.replace("/");
+          alert("Wrong Username or Password");
         }
       });
   }

@@ -4,7 +4,6 @@ import Layout from "./components/layouts/Layout";
 import RegistrationPage from "./pages/Registration";
 import LoginPage from "./pages/Login";
 import DashboardPage from "./pages/Dashboard";
-import HomePage from "./pages/Home";
 import Profile from "./pages/Profile";
 
 function App() {
@@ -12,13 +11,10 @@ function App() {
     <Layout>
       <Switch>
         <Route path="/" exact>
-          <HomePage />
+          <LoginPage />
         </Route>
         <Route path="/register">
           <RegistrationPage />
-        </Route>
-        <Route path="/login">
-          <LoginPage />
         </Route>
         <Route path="/dashboard">
           <DashboardPage />

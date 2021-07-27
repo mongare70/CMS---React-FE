@@ -56,7 +56,8 @@ function LoginForm(props) {
 
   return (
     <div className={classes.container}>
-      <h1 className={classes.title}>Log In</h1>
+      <h1 className={classes.title}>The CMS System</h1>
+      <h1 className={classes.title2}>Log In</h1>
       <form autoComplete="off" onSubmit={submitHandler}>
         <div className={classes.control}>
           <input

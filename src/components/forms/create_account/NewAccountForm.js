@@ -100,7 +100,7 @@ function NewAccountForm(props) {
         </div>
         <div className={classes.doyou}>
           <label>
-            Already have an account? <Link to="/login">Log in</Link>
+            Already have an account? <Link to="/">Log in</Link>
           </label>
         </div>
       </form>

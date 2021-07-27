@@ -16,7 +16,8 @@ function MainNavigation() {
       .then((data) => {
         console.log(data);
         if (data.logout === true) {
-          history.replace("/login");
+          history.replace("/");
+          alert("Logout successfully!");
         }
       });
   }

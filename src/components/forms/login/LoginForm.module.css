@@ -16,6 +16,12 @@
 }
 
 .title {
+  font-weight: 700;
+  text-align: center;
+  color: #096da4;
+}
+
+.title2 {
   letter-spacing: 0;
   text-align: center;
   color: #14a0eb;

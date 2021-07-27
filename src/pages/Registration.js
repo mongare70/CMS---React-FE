@@ -1,6 +1,6 @@
 import { useHistory } from "react-router";
 
-import NewAccountForm from "../components/forms/NewAccountForm";
+import NewAccountForm from "../components/forms/create_account/NewAccountForm";
 
 function Registration() {
   const history = useHistory();
@@ -16,7 +16,8 @@ function Registration() {
       .then((response) => response.json())
       .then((message) => console.log(message))
       .then(() => {
-        history.replace("/login");
+        history.replace("/");
+        alert("User created Successfully!");
       });
   }
 
