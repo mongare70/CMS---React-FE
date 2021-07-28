@@ -56,50 +56,59 @@ function LoginForm(props) {
 
   return (
     <div className={classes.container}>
-      <h1 className={classes.title}>The CMS System</h1>
-      <h1 className={classes.title2}>Log In</h1>
-      <form autoComplete="off" onSubmit={submitHandler}>
-        <div className={classes.control}>
-          <input
-            type="text"
-            placeholder="Username"
-            id="username"
-            name="username"
-            value={values.username}
-            onChange={handleChange}
-            ref={usernameInputRef}
-          />
-          <div className={classes.errors}>
-            {errors.username && <p>{errors.username}</p>}
+      <div className={classes.content_left}>
+        <h1 className={classes.title}>The CMS System</h1>
+        <img className={classes.img} src="/image2.png" alt="computer" />
+      </div>
+      <div className={classes.content_right}>
+        <h1 className={classes.title2}>Log In</h1>
+        <form
+          className={classes.form}
+          autoComplete="off"
+          onSubmit={submitHandler}
+        >
+          <div className={classes.control}>
+            <input
+              type="text"
+              placeholder="Username"
+              id="username"
+              name="username"
+              value={values.username}
+              onChange={handleChange}
+              ref={usernameInputRef}
+            />
+            <div className={classes.errors}>
+              {errors.username && <p>{errors.username}</p>}
+            </div>
           </div>
-        </div>
-        <div className={classes.control}>
-          <input
-            type="password"
-            placeholder="Password"
-            id="password"
-            name="password"
-            value={values.password}
-            onChange={handleChange}
-            ref={passwordInputRef}
-          />
-          <div className={classes.errors}>
-            {errors.password && <p>{errors.password}</p>}
+          <div className={classes.control}>
+            <input
+              type="password"
+              placeholder="Password"
+              id="password"
+              name="password"
+              value={values.password}
+              onChange={handleChange}
+              ref={passwordInputRef}
+            />
+            <div className={classes.errors}>
+              {errors.password && <p>{errors.password}</p>}
+            </div>
           </div>
+          <div className={classes.actions}>
+            <button type="submit">Login</button>
+          </div>
+          <div className={classes.doyou}>
+            <label>
+              <Link to="#">Forgot password?</Link>
+            </label>
+          </div>
+        </form>
+        <div className={classes.actions2}>
+          <Link to="/register">
+            <button>Register New Account</button>
+          </Link>
         </div>
-        <div className={classes.actions}>
-          <button type="submit">Login</button>
-        </div>
-        <div className={classes.doyou}>
-          <label>
-            <Link to="#">Forgot password?</Link>
-          </label>
-        </div>
-      </form>
-      <div className={classes.actions2}>
-        <Link to="/register">
-          <button>Register New Account</button>
-        </Link>
       </div>
     </div>
   );
