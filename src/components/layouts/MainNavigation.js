@@ -17,7 +17,7 @@ function MainNavigation() {
         console.log(data);
         if (data.logout === true) {
           history.replace("/");
-          alert("Logout successfully!");
+          alert("Logged out successfully!");
         }
       });
   }

@@ -23,6 +23,7 @@ function Profile() {
       });
   }
 
+  const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
 
@@ -36,6 +37,7 @@ function Profile() {
       .then((data) => {
         console.log(data);
         if (data.login === true) {
+          setIsLoading(false);
           setIsLoggedIn(true);
           if (data.username != null) {
             setUsername(data.username);
@@ -43,6 +45,14 @@ function Profile() {
         }
       });
   }, []);
+
+  if (isLoading) {
+    return (
+      <section>
+        <p>Loading...</p>
+      </section>
+    );
+  }
 
   if (isLoggedIn) {
     return (

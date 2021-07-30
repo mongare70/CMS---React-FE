@@ -14,10 +14,14 @@ function Registration() {
       },
     })
       .then((response) => response.json())
-      .then((message) => console.log(message))
-      .then(() => {
-        history.replace("/");
-        alert("User created Successfully!");
+      .then((data) => {
+        console.log(data);
+        if (data.registered === true) {
+          history.replace("/");
+          alert("User created Successfully!");
+        } else if (data.registered === false) {
+          alert("User already exists");
+        }
       });
   }
 

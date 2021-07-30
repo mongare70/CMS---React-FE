@@ -63,7 +63,7 @@
 
 .actions button:hover,
 .actions button:active {
-  background-color: #0b1fd4;
+  background-color: rgb(20, 181, 221, 0.6);
 }
 
 .doyou {

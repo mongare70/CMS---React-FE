@@ -1,13 +1,20 @@
 import classes from "./ProfileForm.module.css";
 import validate from "./ValidateProfileForm";
+import Backdrop from "../../delete/Backdrop";
+import Modal from "../../delete/Modal";
 
 import { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router";
 
 function ProfileForm(props) {
   const history = useHistory();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   function deleteAccountHandler() {
+    setModalIsOpen(true);
+  }
+
+  function deleteAccount() {
     fetch("/api/deleteUser", {
       method: "POST",
       body: JSON.stringify(props.usernameHandler),
@@ -21,6 +28,10 @@ function ProfileForm(props) {
         history.replace("/");
         alert("Account deleted successfully!");
       });
+  }
+
+  function closeModalHandler() {
+    setModalIsOpen(false);
   }
 
   const [values, setValues] = useState({
@@ -192,6 +203,11 @@ function ProfileForm(props) {
       <div className={classes.doyou}>
         <button onClick={deleteAccountHandler}>Delete Account</button>
       </div>
+      {/* Open Modal and Backdrop if modalIsOpen is true */}
+      {modalIsOpen ? (
+        <Modal onCancel={closeModalHandler} onConfirm={deleteAccount} />
+      ) : null}
+      {modalIsOpen ? <Backdrop onClick={closeModalHandler} /> : null}
     </div>
   );
 }
