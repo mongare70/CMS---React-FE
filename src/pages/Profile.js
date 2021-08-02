@@ -42,6 +42,9 @@ function Profile() {
           if (data.username != null) {
             setUsername(data.username);
           }
+        } else if (data.login === false) {
+          setIsLoading(false);
+          setIsLoggedIn(false);
         }
       });
   }, []);
