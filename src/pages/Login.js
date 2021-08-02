@@ -41,6 +41,9 @@ function Login() {
         if (data.login === true) {
           setIsLoading(false);
           setIsLoggedIn(true);
+        } else if (data.login === false) {
+          setIsLoading(false);
+          setIsLoggedIn(false);
         }
       });
   }, []);
