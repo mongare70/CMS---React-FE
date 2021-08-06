@@ -7,19 +7,9 @@ function MainNavigation() {
   const history = useHistory();
 
   function logOutHandler() {
-    fetch("/api/logout", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        if (data.logout === true) {
-          history.replace("/");
-          alert("Logged out successfully!");
-        }
-      });
+    sessionStorage.clear();
+    history.replace("/");
+    alert("Logged out successfully!");
   }
 
   return (

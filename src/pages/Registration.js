@@ -6,11 +6,12 @@ function Registration() {
   const history = useHistory();
 
   function addUserHandler(userData) {
-    fetch("/api/createUser", {
+    fetch(`${process.env.REACT_APP_API_URI}/api/createUser`, {
       method: "POST",
       body: JSON.stringify(userData),
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
       },
     })
       .then((response) => response.json())

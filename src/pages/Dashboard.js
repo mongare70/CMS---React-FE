@@ -9,22 +9,16 @@ function Dashboard() {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch("/api/getsession", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        if (data.login === true) {
-          setIsLoading(false);
-          setIsLoggedIn(true);
-        } else if (data.login === false) {
-          setIsLoading(false);
-          setIsLoggedIn(false);
-        }
-      });
+
+    const loggedInUser = sessionStorage.getItem("username");
+
+    if (loggedInUser !== null) {
+      setIsLoading(false);
+      setIsLoggedIn(true);
+    } else {
+      setIsLoading(false);
+      setIsLoggedIn(false);
+    }
   }, []);
 
   if (isLoading) {

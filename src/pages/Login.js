@@ -9,17 +9,19 @@ function Login() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   function loginUserHandler(userData) {
-    fetch("/api/login", {
+    fetch(`${process.env.REACT_APP_API_URI}/api/login`, {
       method: "POST",
       body: JSON.stringify(userData),
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
       },
     })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
         if (data.login === true) {
+          sessionStorage.setItem("username", data.username);
           history.replace("/dashboard");
         } else {
           history.replace("/");
@@ -30,22 +32,16 @@ function Login() {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch("/api/getsession", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        if (data.login === true) {
-          setIsLoading(false);
-          setIsLoggedIn(true);
-        } else if (data.login === false) {
-          setIsLoading(false);
-          setIsLoggedIn(false);
-        }
-      });
+
+    const loggedInUser = sessionStorage.getItem("username");
+
+    if (loggedInUser !== null) {
+      setIsLoading(false);
+      setIsLoggedIn(true);
+    } else {
+      setIsLoading(false);
+      setIsLoggedIn(false);
+    }
   }, []);
 
   if (isLoading) {

@@ -9,22 +9,30 @@ import { useHistory } from "react-router";
 function ProfileForm(props) {
   const history = useHistory();
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   function deleteAccountHandler() {
     setModalIsOpen(true);
   }
 
   function deleteAccount() {
-    fetch("/api/deleteUser", {
+    fetch(`${process.env.REACT_APP_API_URI}/api/deleteUser`, {
       method: "POST",
-      body: JSON.stringify(props.usernameHandler),
+      body: JSON.stringify(username),
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
       },
     })
       .then((response) => response.json())
       .then((data) => console.log(data))
       .then(() => {
+        sessionStorage.clear();
         history.replace("/");
         alert("Account deleted successfully!");
       });
@@ -41,9 +49,6 @@ function ProfileForm(props) {
     password: "",
   });
 
-  const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
   function handleChange(event) {
     const { name, value } = event.target;
     setValues({
@@ -59,7 +64,6 @@ function ProfileForm(props) {
     setIsSubmitting(true);
   }
 
-  const usernameInputRef = useRef();
   const firstnameInputRef = useRef();
   const lastnameInputRef = useRef();
   const emailInputRef = useRef();
@@ -67,17 +71,18 @@ function ProfileForm(props) {
 
   useEffect(() => {
     function doSomething(errors, isSubmitting, props) {
+      const loggedInUser = sessionStorage.getItem("username");
+
       if (Object.keys(errors).length === 0 && isSubmitting) {
         const enteredFirstName = firstnameInputRef.current.value;
         const enteredLastName = lastnameInputRef.current.value;
-        const displayedUsername = usernameInputRef.current.value;
         const enteredEmail = emailInputRef.current.value;
         const enteredPassword = passwordInputRef.current.value;
 
         const newUserData = {
           firstname: enteredFirstName,
           lastname: enteredLastName,
-          username: displayedUsername,
+          username: loggedInUser,
           email: enteredEmail,
           password: enteredPassword,
         };
@@ -94,18 +99,16 @@ function ProfileForm(props) {
     doSomething(errors, isSubmitting, props);
   }, [errors, isSubmitting, props]);
 
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-
   useEffect(() => {
-    function getUserDataHandler(username) {
-      fetch("/api/getUserData", {
+    function getUserDataHandler() {
+      const loggedInUser = sessionStorage.getItem("username");
+
+      fetch(`${process.env.REACT_APP_API_URI}/api/getUserData`, {
         method: "POST",
-        body: JSON.stringify(username),
+        body: JSON.stringify(loggedInUser),
         headers: {
           "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
         },
       })
         .then((response) => response.json())
@@ -118,8 +121,8 @@ function ProfileForm(props) {
         });
     }
 
-    getUserDataHandler(props.usernameHandler);
-  }, [props.usernameHandler]);
+    getUserDataHandler();
+  }, []);
 
   return (
     <div className={classes.container}>
@@ -161,9 +164,7 @@ function ProfileForm(props) {
             type="text"
             id="username"
             name="username"
-            placeholder={username}
-            value={props.usernameHandler}
-            ref={usernameInputRef}
+            value={username}
             disabled
           />
         </div>

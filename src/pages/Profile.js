@@ -8,11 +8,12 @@ function Profile() {
   const history = useHistory();
 
   function changeUserDataHandler(newUserData) {
-    fetch("/api/editUser", {
+    fetch(`${process.env.REACT_APP_API_URI}/api/editUser`, {
       method: "POST",
       body: JSON.stringify(newUserData),
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
       },
     })
       .then((response) => response.json())
@@ -25,28 +26,19 @@ function Profile() {
 
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState("");
 
   useEffect(() => {
-    fetch("/api/getsession", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        if (data.login === true) {
-          setIsLoading(false);
-          setIsLoggedIn(true);
-          if (data.username != null) {
-            setUsername(data.username);
-          }
-        } else if (data.login === false) {
-          setIsLoading(false);
-          setIsLoggedIn(false);
-        }
-      });
+    setIsLoading(true);
+
+    const loggedInUser = sessionStorage.getItem("username");
+
+    if (loggedInUser !== null) {
+      setIsLoading(false);
+      setIsLoggedIn(true);
+    } else {
+      setIsLoading(false);
+      setIsLoggedIn(false);
+    }
   }, []);
 
   if (isLoading) {
@@ -62,10 +54,7 @@ function Profile() {
       <div>
         <section>
           <MainNavigation />
-          <ProfileForm
-            usernameHandler={username}
-            onChangeUserData={changeUserDataHandler}
-          />
+          <ProfileForm onChangeUserData={changeUserDataHandler} />
         </section>
       </div>
     );
