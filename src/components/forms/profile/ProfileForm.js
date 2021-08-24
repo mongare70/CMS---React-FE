@@ -5,6 +5,7 @@ import Modal from "../../delete/Modal";
 
 import { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 
 function ProfileForm(props) {
   const history = useHistory();
@@ -199,6 +200,9 @@ function ProfileForm(props) {
         </div>
         <div className={classes.actions}>
           <button type="submit">Update Profile</button>
+        </div>
+        <div className={classes.actions2}>
+          <Link to="/changePassword">Change Password</Link>
         </div>
       </form>
       <div className={classes.doyou}>

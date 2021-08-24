@@ -4,46 +4,26 @@
 
 .container {
   margin: 90px auto;
-  width: 750px;
+  display: block;
+  background: #aed2fb;
   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.2);
-  position: relative;
   border-radius: 10px;
-  height: 500px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-.content_left {
-  background: #aed2fb;
-  border-radius: 10px 0 0 10px;
-  position: relative;
-}
-
-.content_right {
-  border-radius: 0 10px 10px 0;
-  position: relative;
-  background: #aed2fb;
-}
-
-.img {
-  width: 70%;
-  height: 50%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 350px;
+  height: auto;
 }
 
 .title {
-  margin-top: 70px;
-  font-weight: 800;
-  font-size: 55;
+  letter-spacing: 0;
   text-align: center;
   color: #096da4;
+  font-size: 36px;
+  font-weight: bold;
 }
 
 .title2 {
-  margin-top: 70px;
   letter-spacing: 0;
   text-align: center;
   color: #14a0eb;
@@ -77,9 +57,10 @@
   background-color: #21a5ff;
   color: white;
   padding: 0.5rem;
+  font-weight: bold;
+  border: none;
   width: 300px;
   height: 50px;
-  border: none;
 }
 
 .actions button:hover,
@@ -90,12 +71,11 @@
 .doyou {
   margin-top: 1rem;
   text-align: center;
-  color: black;
 }
 
 .doyou a {
   text-decoration: none;
-  color: black;
+  color: #21a5ff;
 }
 
 .doyou a:hover {

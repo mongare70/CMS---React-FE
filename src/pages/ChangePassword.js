@@ -1,16 +1,19 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
-import ProfileForm from "../components/forms/profile/ProfileForm";
+
 import MainNavigation from "../components/layouts/MainNavigation";
 import Login from "./Login";
+import ChangePasswordForm from "../components/forms/change_password/ChangePasswordForm";
 
-function Profile() {
+function ChangePassword() {
   const history = useHistory();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  function changeUserDataHandler(newUserData) {
-    fetch(`${process.env.REACT_APP_API_URI}/api/editUser`, {
+  function changeUserPasswordHandler(newUserPassword) {
+    fetch(`${process.env.REACT_APP_API_URI}/api/editUserPassword`, {
       method: "POST",
-      body: JSON.stringify(newUserData),
+      body: JSON.stringify(newUserPassword),
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
@@ -19,17 +22,14 @@ function Profile() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        if (data.editUser === true) {
+        if (data.editUserPassword === true) {
           history.replace("/dashboard");
-          alert("Profile edited successfully!");
+          alert("Password Updated successfully!");
         } else if (data.password === false) {
           alert("Incorrect Password!");
         }
       });
   }
-
-  const [isLoading, setIsLoading] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -58,7 +58,9 @@ function Profile() {
       <div>
         <section>
           <MainNavigation />
-          <ProfileForm onChangeUserData={changeUserDataHandler} />
+          <ChangePasswordForm
+            onChangeUserPassword={changeUserPasswordHandler}
+          />
         </section>
       </div>
     );
@@ -67,4 +69,4 @@ function Profile() {
   }
 }
 
-export default Profile;
+export default ChangePassword;
