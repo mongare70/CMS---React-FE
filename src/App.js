@@ -7,7 +7,7 @@ import DashboardPage from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 import ChangePassword from "./pages/ChangePassword";
 
-function App() {
+const App = () => {
   return (
     <Layout>
       <Switch>
@@ -29,6 +29,6 @@ function App() {
       </Switch>
     </Layout>
   );
-}
+};
 
 export default App;

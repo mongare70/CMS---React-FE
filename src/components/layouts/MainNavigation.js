@@ -5,14 +5,14 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
-function MainNavigation() {
+const MainNavigation = () => {
   const history = useHistory();
 
-  function logOutHandler() {
+  const logOutHandler = () => {
     sessionStorage.clear();
     history.replace("/");
     alert("Logged out successfully!");
-  }
+  };
 
   const loggedInUser = sessionStorage.getItem("username");
 
@@ -52,6 +52,6 @@ function MainNavigation() {
       </nav>
     </div>
   );
-}
+};
 
 export default MainNavigation;

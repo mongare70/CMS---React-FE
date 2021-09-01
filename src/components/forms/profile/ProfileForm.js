@@ -7,7 +7,7 @@ import { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 
-function ProfileForm(props) {
+const ProfileForm = (props) => {
   const history = useHistory();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [firstname, setFirstname] = useState("");
@@ -17,11 +17,11 @@ function ProfileForm(props) {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  function deleteAccountHandler() {
+  const deleteAccountHandler = () => {
     setModalIsOpen(true);
-  }
+  };
 
-  function deleteAccount() {
+  const deleteAccount = () => {
     fetch(`${process.env.REACT_APP_API_URI}/api/deleteUser`, {
       method: "POST",
       body: JSON.stringify(username),
@@ -37,11 +37,11 @@ function ProfileForm(props) {
         history.replace("/");
         alert("Account deleted successfully!");
       });
-  }
+  };
 
-  function closeModalHandler() {
+  const closeModalHandler = () => {
     setModalIsOpen(false);
-  }
+  };
 
   const [values, setValues] = useState({
     firstname: "",
@@ -50,20 +50,20 @@ function ProfileForm(props) {
     password: "",
   });
 
-  function handleChange(event) {
+  const handleChange = (event) => {
     const { name, value } = event.target;
     setValues({
       ...values,
       [name]: value,
     });
-  }
+  };
 
-  function submitHandler(event) {
+  const submitHandler = (event) => {
     event.preventDefault();
 
     setErrors(validate(values));
     setIsSubmitting(true);
-  }
+  };
 
   const firstnameInputRef = useRef();
   const lastnameInputRef = useRef();
@@ -71,7 +71,7 @@ function ProfileForm(props) {
   const passwordInputRef = useRef();
 
   useEffect(() => {
-    function doSomething(errors, isSubmitting, props) {
+    const doSomething = (errors, isSubmitting, props) => {
       const loggedInUser = sessionStorage.getItem("username");
 
       if (Object.keys(errors).length === 0 && isSubmitting) {
@@ -96,12 +96,12 @@ function ProfileForm(props) {
           password: "",
         });
       }
-    }
+    };
     doSomething(errors, isSubmitting, props);
   }, [errors, isSubmitting, props]);
 
   useEffect(() => {
-    function getUserDataHandler() {
+    const getUserDataHandler = () => {
       const loggedInUser = sessionStorage.getItem("username");
 
       fetch(`${process.env.REACT_APP_API_URI}/api/getUserData`, {
@@ -120,7 +120,7 @@ function ProfileForm(props) {
           setUsername(data.username);
           setEmail(data.email);
         });
-    }
+    };
 
     getUserDataHandler();
   }, []);
@@ -215,6 +215,6 @@ function ProfileForm(props) {
       {modalIsOpen ? <Backdrop onClick={closeModalHandler} /> : null}
     </div>
   );
-}
+};
 
 export default ProfileForm;

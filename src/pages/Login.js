@@ -3,7 +3,7 @@ import { useHistory } from "react-router";
 import { useEffect, useState } from "react";
 import UserDashboard from "../components/layouts/UserDashboard";
 
-function Login() {
+const Login = () => {
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -61,6 +61,6 @@ function Login() {
       </section>
     );
   }
-}
+};
 
 export default Login;

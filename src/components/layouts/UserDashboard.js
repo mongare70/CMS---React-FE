@@ -1,6 +1,6 @@
 import MainNavigation from "./MainNavigation";
 
-function UserDashboard(props) {
+const UserDashboard = (props) => {
   return (
     <div>
       <MainNavigation />
@@ -8,6 +8,6 @@ function UserDashboard(props) {
       {props.children}
     </div>
   );
-}
+};
 
 export default UserDashboard;

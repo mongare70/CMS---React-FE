@@ -4,35 +4,35 @@ import { useState, useRef, useEffect } from "react";
 import validate from "./ValidateLoginForm";
 import classes from "./LoginForm.module.css";
 
-function LoginForm(props) {
+const LoginForm = (props) => {
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [values, setValues] = useState({
     username: "",
     password: "",
   });
 
-  const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  function handleChange(event) {
+  const handleChange = (event) => {
     const { name, value } = event.target;
     setValues({
       ...values,
       [name]: value,
     });
-  }
+  };
 
-  function submitHandler(event) {
+  const submitHandler = (event) => {
     event.preventDefault();
 
     setErrors(validate(values));
     setIsSubmitting(true);
-  }
+  };
 
   const usernameInputRef = useRef();
   const passwordInputRef = useRef();
 
   useEffect(() => {
-    function doSomething(errors, isSubmitting, props) {
+    const doSomething = (errors, isSubmitting, props) => {
       if (Object.keys(errors).length === 0 && isSubmitting) {
         const enteredUsername = usernameInputRef.current.value;
         const enteredPassword = passwordInputRef.current.value;
@@ -49,7 +49,7 @@ function LoginForm(props) {
           password: "",
         });
       }
-    }
+    };
 
     doSomething(errors, isSubmitting, props);
   }, [errors, isSubmitting, props]);
@@ -107,6 +107,6 @@ function LoginForm(props) {
       </div>
     </div>
   );
-}
+};
 
 export default LoginForm;

@@ -3,7 +3,7 @@ import validate from "./ValidateChangePasswordForm";
 
 import { useState, useEffect, useRef } from "react";
 
-function ChangePasswordForm(props) {
+const ChangePasswordForm = (props) => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -12,26 +12,26 @@ function ChangePasswordForm(props) {
     newPassword: "",
   });
 
-  function handleChange(event) {
+  const handleChange = (event) => {
     const { name, value } = event.target;
     setValues({
       ...values,
       [name]: value,
     });
-  }
+  };
 
-  function submitHandler(event) {
+  const submitHandler = (event) => {
     event.preventDefault();
 
     setErrors(validate(values));
     setIsSubmitting(true);
-  }
+  };
 
   const oldPasswordInputRef = useRef();
   const newPasswordInputRef = useRef();
 
   useEffect(() => {
-    function doSomething(errors, isSubmitting, props) {
+    const doSomething = (errors, isSubmitting, props) => {
       const loggedInUser = sessionStorage.getItem("username");
 
       if (Object.keys(errors).length === 0 && isSubmitting) {
@@ -50,7 +50,7 @@ function ChangePasswordForm(props) {
           newPassword: "",
         });
       }
-    }
+    };
 
     doSomething(errors, isSubmitting, props);
   }, [errors, isSubmitting, props]);
@@ -93,6 +93,6 @@ function ChangePasswordForm(props) {
       </form>
     </div>
   );
-}
+};
 
 export default ChangePasswordForm;

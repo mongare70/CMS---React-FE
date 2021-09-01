@@ -4,37 +4,37 @@ import { useState, useEffect, useRef } from "react";
 import validate from "./ValidateNewAccountForm";
 import classes from "./NewAccountForm.module.css";
 
-function NewAccountForm(props) {
+const NewAccountForm = (props) => {
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [values, setValues] = useState({
     username: "",
     email: "",
     password: "",
   });
 
-  const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  function handleChange(event) {
+  const handleChange = (event) => {
     const { name, value } = event.target;
     setValues({
       ...values,
       [name]: value,
     });
-  }
+  };
 
-  function submitHandler(event) {
+  const submitHandler = (event) => {
     event.preventDefault();
 
     setErrors(validate(values));
     setIsSubmitting(true);
-  }
+  };
 
   const usernameInputRef = useRef();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
   useEffect(() => {
-    function login(errors, isSubmitting, props) {
+    const login = (errors, isSubmitting, props) => {
       if (Object.keys(errors).length === 0 && isSubmitting) {
         const enteredUsername = usernameInputRef.current.value;
         const enteredEmail = emailInputRef.current.value;
@@ -54,7 +54,7 @@ function NewAccountForm(props) {
           password: "",
         });
       }
-    }
+    };
 
     login(errors, isSubmitting, props);
   }, [errors, isSubmitting, props]);
@@ -116,6 +116,6 @@ function NewAccountForm(props) {
       </form>
     </div>
   );
-}
+};
 
 export default NewAccountForm;

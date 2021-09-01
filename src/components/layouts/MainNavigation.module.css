@@ -62,11 +62,6 @@ nav ul li a:hover {
   box-shadow: 0 0 5px #33ffff, 0 0 5px #66ffff;
 }
 
-nav ul ul li a:hover {
-  color: cyan;
-  box-shadow: none;
-}
-
 nav ul ul {
   position: absolute;
   top: 90px;
@@ -76,22 +71,28 @@ nav ul ul {
   transition: top 0.3s;
 }
 
-nav ul li:hover > ul {
-  top: 70px;
-  opacity: 1;
-  visibility: visible;
-}
-
 nav ul ul li {
   position: relative;
   margin: 0px;
-  width: 150px;
+  width: 90px;
   float: none;
   display: list-item;
 }
 
 nav ul ul li a {
+  font-size: 15px;
   line-height: 50px;
+}
+
+nav ul ul li a:hover {
+  color: cyan;
+  box-shadow: none;
+}
+
+nav ul li:hover > ul {
+  top: 70px;
+  opacity: 1;
+  visibility: visible;
 }
 
 nav ul ul ul {
@@ -113,7 +114,7 @@ nav ul ul ul li {
   cursor: pointer;
   color: white;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 15px;
   background: #0082e6;
   padding: 8px 15px;
 }
@@ -136,15 +137,18 @@ input {
     margin-right: 0px;
     float: left;
   }
+
   nav .logo {
     padding-left: 30px;
     width: 100%;
   }
+
   nav ul li,
   nav ul ul li {
     display: block;
     width: 100%;
   }
+
   nav ul ul {
     top: 70px;
     position: static;
@@ -155,27 +159,19 @@ input {
     visibility: visible;
   }
 
-  nav ul ul ul li {
-    position: static;
-  }
-
   nav ul ul li {
     border-bottom: 0px;
   }
 
   nav ul ul a {
-    padding-left: 40px;
-  }
-
-  nav ul ul ul a {
-    padding-left: 80px;
+    padding-left: 15px;
   }
 
   .show {
     display: block;
     color: white;
     font-size: 18px;
-    padding: 0 20px;
+    padding: 0 12px;
     line-height: 70px;
     cursor: pointer;
   }

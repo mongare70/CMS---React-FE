@@ -5,12 +5,12 @@ import MainNavigation from "../components/layouts/MainNavigation";
 import Login from "./Login";
 import ChangePasswordForm from "../components/forms/change_password/ChangePasswordForm";
 
-function ChangePassword() {
+const ChangePassword = () => {
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  function changeUserPasswordHandler(newUserPassword) {
+  const changeUserPasswordHandler = (newUserPassword) => {
     fetch(`${process.env.REACT_APP_API_URI}/api/editUserPassword`, {
       method: "POST",
       body: JSON.stringify(newUserPassword),
@@ -29,7 +29,7 @@ function ChangePassword() {
           alert("Incorrect Password!");
         }
       });
-  }
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -67,6 +67,6 @@ function ChangePassword() {
   } else {
     return <Login />;
   }
-}
+};
 
 export default ChangePassword;

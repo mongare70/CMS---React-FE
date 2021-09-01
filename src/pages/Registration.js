@@ -2,7 +2,7 @@ import { useHistory } from "react-router";
 
 import NewAccountForm from "../components/forms/create_account/NewAccountForm";
 
-function Registration() {
+const Registration = () => {
   const history = useHistory();
 
   function addUserHandler(userData) {
@@ -31,6 +31,6 @@ function Registration() {
       <NewAccountForm onAddUser={addUserHandler} />
     </section>
   );
-}
+};
 
 export default Registration;

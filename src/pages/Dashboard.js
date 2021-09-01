@@ -3,7 +3,7 @@ import UserDashboard from "../components/layouts/UserDashboard";
 
 import Login from "./Login";
 
-function Dashboard() {
+const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -34,6 +34,6 @@ function Dashboard() {
   } else {
     return <Login />;
   }
-}
+};
 
 export default Dashboard;

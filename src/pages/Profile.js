@@ -4,7 +4,7 @@ import ProfileForm from "../components/forms/profile/ProfileForm";
 import MainNavigation from "../components/layouts/MainNavigation";
 import Login from "./Login";
 
-function Profile() {
+const Profile = () => {
   const history = useHistory();
 
   function changeUserDataHandler(newUserData) {
@@ -65,6 +65,6 @@ function Profile() {
   } else {
     return <Login />;
   }
-}
+};
 
 export default Profile;
