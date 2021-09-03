@@ -96,7 +96,7 @@ const LoginForm = (props) => {
         </div>
         <div className={classes.doyou}>
           <label>
-            <Link to="#">Forgot password?</Link>
+            <Link to="/forgot">Forgot password?</Link>
           </label>
         </div>
       </form>

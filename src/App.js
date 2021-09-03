@@ -6,6 +6,8 @@ import LoginPage from "./pages/Login";
 import DashboardPage from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 import ChangePassword from "./pages/ChangePassword";
+import ResetPasswordRequest from "./pages/ResetPasswordRequest";
+import ResetPassword from "./pages/ResetPassword";
 
 const App = () => {
   return (
@@ -26,6 +28,10 @@ const App = () => {
         <Route path="/changePassword">
           <ChangePassword />
         </Route>
+        <Route path="/forgot">
+          <ResetPasswordRequest />
+        </Route>
+        <Route path="/reset_password/:token" component={ResetPassword} />
       </Switch>
     </Layout>
   );
