@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { useHistory } from "react-router";
 
 import NewAccountForm from "../components/forms/create_account/NewAccountForm";
@@ -20,16 +21,18 @@ const Registration = () => {
         if (data.registered === true) {
           history.replace("/");
           alert("User created Successfully!");
-        } else if (data.registered === false) {
-          alert("User already exists");
+        } else if (data.username === false) {
+          alert("User with submitted username already exists");
+        } else if (data.email === false) {
+          alert("User with submitted email already exists");
         }
       });
   }
 
   return (
-    <section>
+    <Fragment>
       <NewAccountForm onAddUser={addUserHandler} />
-    </section>
+    </Fragment>
   );
 };
 

@@ -4,6 +4,7 @@ import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { Fragment } from "react";
 
 const MainNavigation = () => {
   const history = useHistory();
@@ -17,7 +18,7 @@ const MainNavigation = () => {
   const loggedInUser = sessionStorage.getItem("username");
 
   return (
-    <div>
+    <Fragment>
       <nav>
         <div className={classes.logo}>CMS</div>
         <label htmlFor="btn" className={classes.icon}>
@@ -50,7 +51,7 @@ const MainNavigation = () => {
           </li>
         </ul>
       </nav>
-    </div>
+    </Fragment>
   );
 };
 

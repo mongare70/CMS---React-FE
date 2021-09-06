@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import { useHistory } from "react-router";
 import ProfileForm from "../components/forms/profile/ProfileForm";
 import MainNavigation from "../components/layouts/MainNavigation";
@@ -47,20 +47,18 @@ const Profile = () => {
 
   if (isLoading) {
     return (
-      <section>
+      <Fragment>
         <p>Loading...</p>
-      </section>
+      </Fragment>
     );
   }
 
   if (isLoggedIn) {
     return (
-      <div>
-        <section>
-          <MainNavigation />
-          <ProfileForm onChangeUserData={changeUserDataHandler} />
-        </section>
-      </div>
+      <Fragment>
+        <MainNavigation />
+        <ProfileForm onChangeUserData={changeUserDataHandler} />
+      </Fragment>
     );
   } else {
     return <Login />;

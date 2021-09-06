@@ -1,10 +1,11 @@
+import { Fragment } from "react";
 import PleaseCheckYourEmailUI from "../components/PleaseCheckYourEmailUI";
 
 const PleaseCheckYourEmail = () => {
   return (
-    <div>
+    <Fragment>
       <PleaseCheckYourEmailUI />
-    </div>
+    </Fragment>
   );
 };
 

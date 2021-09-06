@@ -15,5 +15,11 @@
   letter-spacing: 0;
   text-align: center;
   color: #14a0eb;
+  font-size: 36;
   font-weight: bold;
+}
+
+.content {
+  text-align: center;
+  color: #be4141;
 }

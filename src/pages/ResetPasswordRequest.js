@@ -1,6 +1,6 @@
 import ResetPasswordRequestForm from "../components/forms/reset_password/ResetPasswordRequestForm";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import PleaseCheckYourEmail from "./PleaseCheckYourEmail";
 
 const ResetPasswordRequest = () => {
@@ -29,26 +29,26 @@ const ResetPasswordRequest = () => {
 
   if (passwordReset) {
     return (
-      <div>
+      <Fragment>
         <PleaseCheckYourEmail />
-      </div>
+      </Fragment>
     );
   } else if (emailExists) {
     return (
-      <div>
+      <Fragment>
         <ResetPasswordRequestForm
           onResetPasswordEmail={resetPasswordEmailHandler}
         />
-      </div>
+      </Fragment>
     );
   } else {
     return (
-      <div>
+      <Fragment>
         <h1>Email does not exist</h1>
         <ResetPasswordRequestForm
           onResetPasswordEmail={resetPasswordEmailHandler}
         />
-      </div>
+      </Fragment>
     );
   }
 };

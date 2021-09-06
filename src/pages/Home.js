@@ -1,5 +1,7 @@
+import { Fragment } from "react";
+
 const Home = () => {
-  return <div>HomePage</div>;
+  return <Fragment>HomePage</Fragment>;
 };
 
 export default Home;

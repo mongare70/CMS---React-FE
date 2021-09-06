@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import UserDashboard from "../components/layouts/UserDashboard";
 
 import Login from "./Login";
@@ -23,9 +23,9 @@ const Dashboard = () => {
 
   if (isLoading) {
     return (
-      <section>
+      <Fragment>
         <p>Loading...</p>
-      </section>
+      </Fragment>
     );
   }
 

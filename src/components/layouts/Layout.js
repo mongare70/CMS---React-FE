@@ -1,5 +1,7 @@
+import { Fragment } from "react";
+
 const Layout = (props) => {
-  return <div>{props.children}</div>;
+  return <Fragment>{props.children}</Fragment>;
 };
 
 export default Layout;

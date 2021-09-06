@@ -2,6 +2,7 @@ import ResetPasswordForm from "../components/forms/reset_password/ResetPasswordF
 
 import { useHistory } from "react-router";
 import { useParams } from "react-router";
+import { Fragment } from "react";
 
 const ResetPassword = () => {
   const history = useHistory();
@@ -32,9 +33,9 @@ const ResetPassword = () => {
   };
 
   return (
-    <div>
+    <Fragment>
       <ResetPasswordForm onResetPassword={onResetPasswordHandler} />;
-    </div>
+    </Fragment>
   );
 };
 

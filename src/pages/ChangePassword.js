@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import { useHistory } from "react-router";
 
 import MainNavigation from "../components/layouts/MainNavigation";
@@ -47,22 +47,22 @@ const ChangePassword = () => {
 
   if (isLoading) {
     return (
-      <section>
+      <Fragment>
         <p>Loading...</p>
-      </section>
+      </Fragment>
     );
   }
 
   if (isLoggedIn) {
     return (
-      <div>
+      <Fragment>
         <section>
           <MainNavigation />
           <ChangePasswordForm
             onChangeUserPassword={changeUserPasswordHandler}
           />
         </section>
-      </div>
+      </Fragment>
     );
   } else {
     return <Login />;

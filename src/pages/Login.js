@@ -1,6 +1,6 @@
 import LoginForm from "../components/forms/login/LoginForm";
 import { useHistory } from "react-router";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import UserDashboard from "../components/layouts/UserDashboard";
 
 const Login = () => {
@@ -46,9 +46,9 @@ const Login = () => {
 
   if (isLoading) {
     return (
-      <section>
+      <Fragment>
         <p>Loading...</p>
-      </section>
+      </Fragment>
     );
   }
 
@@ -56,9 +56,9 @@ const Login = () => {
     return <UserDashboard />;
   } else {
     return (
-      <section>
+      <Fragment>
         <LoginForm onLoginUser={loginUserHandler} />
-      </section>
+      </Fragment>
     );
   }
 };
