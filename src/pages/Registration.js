@@ -1,5 +1,7 @@
 import { Fragment } from "react";
 import { useHistory } from "react-router";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import NewAccountForm from "../components/forms/create_account/NewAccountForm";
 
@@ -20,11 +22,11 @@ const Registration = () => {
         console.log(data);
         if (data.registered === true) {
           history.replace("/");
-          alert("User created Successfully!");
+          toast.success("Account created Successfully!");
         } else if (data.username === false) {
-          alert("User with submitted username already exists");
+          toast.error("User with submitted username already exists");
         } else if (data.email === false) {
-          alert("User with submitted email already exists");
+          toast.error("User with submitted email already exists");
         }
       });
   }

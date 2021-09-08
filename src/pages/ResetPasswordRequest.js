@@ -1,10 +1,11 @@
 import ResetPasswordRequestForm from "../components/forms/reset_password/ResetPasswordRequestForm";
-
-import { Fragment, useState } from "react";
 import PleaseCheckYourEmail from "./PleaseCheckYourEmail";
 
+import { Fragment, useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const ResetPasswordRequest = () => {
-  const [emailExists, setEmailExists] = useState(true);
   const [passwordReset, setPasswordReset] = useState(false);
 
   const resetPasswordEmailHandler = (email) => {
@@ -20,7 +21,7 @@ const ResetPasswordRequest = () => {
       .then((data) => {
         console.log(data);
         if (data.reset === false) {
-          setEmailExists(false);
+          toast.error("Email does not exist");
         } else if (data.password_reset === true) {
           setPasswordReset(true);
         }
@@ -33,18 +34,9 @@ const ResetPasswordRequest = () => {
         <PleaseCheckYourEmail />
       </Fragment>
     );
-  } else if (emailExists) {
-    return (
-      <Fragment>
-        <ResetPasswordRequestForm
-          onResetPasswordEmail={resetPasswordEmailHandler}
-        />
-      </Fragment>
-    );
   } else {
     return (
       <Fragment>
-        <h1>Email does not exist</h1>
         <ResetPasswordRequestForm
           onResetPasswordEmail={resetPasswordEmailHandler}
         />

@@ -3,10 +3,12 @@ export default function ValidateNewAccountForm(values) {
 
   if (!values.username.trim()) {
     errors.username = "Username required";
-  } else if (values.username.length < 4) {
-    errors.username = "Username needs to be more than 4 characters or more";
-  } else if (values.username.length > 20) {
-    errors.username = "Username needs to be less than 20 characters";
+  } else if (
+    !/^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/.test(
+      values.username
+    )
+  ) {
+    errors.username = "Username is invalid: e.g mama";
   }
 
   if (!values.email) {

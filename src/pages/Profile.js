@@ -3,6 +3,8 @@ import { useHistory } from "react-router";
 import ProfileForm from "../components/forms/profile/ProfileForm";
 import MainNavigation from "../components/layouts/MainNavigation";
 import Login from "./Login";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Profile = () => {
   const history = useHistory();
@@ -21,9 +23,9 @@ const Profile = () => {
         console.log(data);
         if (data.editUser === true) {
           history.replace("/dashboard");
-          alert("Profile edited successfully!");
+          toast.success("Profile edited successfully!");
         } else if (data.password === false) {
-          alert("Incorrect Password!");
+          toast.error("Incorrect Password!");
         }
       });
   }

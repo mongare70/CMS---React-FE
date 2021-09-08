@@ -8,10 +8,12 @@ import Profile from "./pages/Profile";
 import ChangePassword from "./pages/ChangePassword";
 import ResetPasswordRequest from "./pages/ResetPasswordRequest";
 import ResetPassword from "./pages/ResetPassword";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   return (
     <Layout>
+      <ToastContainer />
       <Switch>
         <Route path="/" exact>
           <LoginPage />

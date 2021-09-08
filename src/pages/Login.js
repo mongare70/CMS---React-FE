@@ -1,6 +1,8 @@
 import LoginForm from "../components/forms/login/LoginForm";
 import { useHistory } from "react-router";
 import { Fragment, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import UserDashboard from "../components/layouts/UserDashboard";
 
 const Login = () => {
@@ -25,7 +27,7 @@ const Login = () => {
           history.replace("/dashboard");
         } else {
           history.replace("/");
-          alert("Wrong Username or Password");
+          toast.error("Wrong Username or Password");
         }
       });
   }

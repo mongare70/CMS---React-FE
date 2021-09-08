@@ -1,5 +1,7 @@
 import { useState, useEffect, Fragment } from "react";
 import { useHistory } from "react-router";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import MainNavigation from "../components/layouts/MainNavigation";
 import Login from "./Login";
@@ -24,9 +26,9 @@ const ChangePassword = () => {
         console.log(data);
         if (data.editUserPassword === true) {
           history.replace("/dashboard");
-          alert("Password Updated successfully!");
+          toast.success("Password Updated successfully!");
         } else if (data.password === false) {
-          alert("Incorrect Password!");
+          toast.error("Incorrect Old Password!");
         }
       });
   };

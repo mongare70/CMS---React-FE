@@ -5,6 +5,8 @@ import Modal from "../../delete/Modal";
 
 import { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 
 const ProfileForm = (props) => {
@@ -35,7 +37,7 @@ const ProfileForm = (props) => {
       .then(() => {
         sessionStorage.clear();
         history.replace("/");
-        alert("Account deleted successfully!");
+        toast.success("Account deleted successfully!");
       });
   };
 

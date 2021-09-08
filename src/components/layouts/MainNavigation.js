@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { Fragment } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const MainNavigation = () => {
   const history = useHistory();
@@ -12,7 +14,7 @@ const MainNavigation = () => {
   const logOutHandler = () => {
     sessionStorage.clear();
     history.replace("/");
-    alert("Logged out successfully!");
+    toast.success("Logged out successfully!");
   };
 
   const loggedInUser = sessionStorage.getItem("username");

@@ -3,6 +3,8 @@ import ResetPasswordForm from "../components/forms/reset_password/ResetPasswordF
 import { useHistory } from "react-router";
 import { useParams } from "react-router";
 import { Fragment } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ResetPassword = () => {
   const history = useHistory();
@@ -25,9 +27,9 @@ const ResetPassword = () => {
         console.log(data);
         if (data.reset === true) {
           history.replace("/");
-          alert("Password changed! Please login!");
+          toast.success("Password changed successfully! Please login!");
         } else {
-          alert("That is an invalid or expired token. Please try again.");
+          toast.error("That is an invalid or expired token. Please try again.");
         }
       });
   };
