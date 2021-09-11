@@ -11,6 +11,7 @@ const Login = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   function loginUserHandler(userData) {
+    setIsLoading(true);
     fetch(`${process.env.REACT_APP_API_URI}/api/login`, {
       method: "POST",
       body: JSON.stringify(userData),
@@ -23,9 +24,11 @@ const Login = () => {
       .then((data) => {
         console.log(data);
         if (data.login === true) {
+          setIsLoading(false);
           sessionStorage.setItem("username", data.username);
           history.replace("/dashboard");
         } else {
+          setIsLoading(false);
           history.replace("/");
           toast.error("Wrong Username or Password");
         }

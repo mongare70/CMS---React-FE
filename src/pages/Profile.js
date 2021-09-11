@@ -10,6 +10,7 @@ const Profile = () => {
   const history = useHistory();
 
   function changeUserDataHandler(newUserData) {
+    setIsLoading(true);
     fetch(`${process.env.REACT_APP_API_URI}/api/editUser`, {
       method: "POST",
       body: JSON.stringify(newUserData),
@@ -22,9 +23,11 @@ const Profile = () => {
       .then((data) => {
         console.log(data);
         if (data.editUser === true) {
+          setIsLoading(false);
           history.replace("/dashboard");
           toast.success("Profile edited successfully!");
         } else if (data.password === false) {
+          setIsLoading(false);
           toast.error("Incorrect Password!");
         }
       });

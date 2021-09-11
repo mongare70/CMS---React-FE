@@ -13,6 +13,7 @@ const ChangePassword = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const changeUserPasswordHandler = (newUserPassword) => {
+    setIsLoading(true);
     fetch(`${process.env.REACT_APP_API_URI}/api/editUserPassword`, {
       method: "POST",
       body: JSON.stringify(newUserPassword),
@@ -25,9 +26,11 @@ const ChangePassword = () => {
       .then((data) => {
         console.log(data);
         if (data.editUserPassword === true) {
+          setIsLoading(false);
           history.replace("/dashboard");
           toast.success("Password Updated successfully!");
         } else if (data.password === false) {
+          setIsLoading(false);
           toast.error("Incorrect Old Password!");
         }
       });
