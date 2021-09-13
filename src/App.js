@@ -1,4 +1,4 @@
-import { Route, Switch } from "react-router";
+import { Route, Switch, useHistory } from "react-router";
 
 import Layout from "./components/layouts/Layout";
 import RegistrationPage from "./pages/Registration";
@@ -9,33 +9,98 @@ import ChangePassword from "./pages/ChangePassword";
 import ResetPasswordRequest from "./pages/ResetPasswordRequest";
 import ResetPassword from "./pages/ResetPassword";
 import { ToastContainer } from "react-toastify";
+import { useState, useEffect } from "react";
+import AuthContext from "./store/AuthContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const history = useHistory();
+
+  useEffect(() => {
+    const storedUserLoggedInInformation = localStorage.getItem("isLoggedIn");
+    if (storedUserLoggedInInformation === "1") {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  function loginUserHandler(userData) {
+    fetch(`${process.env.REACT_APP_API_URI}/api/login`, {
+      method: "POST",
+      body: JSON.stringify(userData),
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.login === true) {
+          sessionStorage.setItem("username", data.username);
+          localStorage.setItem("isLoggedIn", "1");
+          setIsLoggedIn(true);
+          history.replace("/dashboard");
+        } else {
+          setIsLoggedIn(false);
+          history.replace("/");
+          toast.error("Wrong Username or Password");
+        }
+      });
+  }
+
+  const logoutHandler = () => {
+    sessionStorage.clear();
+    localStorage.removeItem("isLoggedIn");
+    history.replace("/");
+    setIsLoggedIn(false);
+    toast.success("Logged out successfully!");
+  };
+
   return (
-    <Layout>
-      <ToastContainer />
-      <Switch>
-        <Route path="/" exact>
-          <LoginPage />
-        </Route>
-        <Route path="/register">
-          <RegistrationPage />
-        </Route>
-        <Route path="/dashboard">
-          <DashboardPage />
-        </Route>
-        <Route path="/profile">
-          <Profile />
-        </Route>
-        <Route path="/changePassword">
-          <ChangePassword />
-        </Route>
-        <Route path="/forgot">
-          <ResetPasswordRequest />
-        </Route>
-        <Route path="/reset_password/:token" component={ResetPassword} />
-      </Switch>
-    </Layout>
+    <AuthContext.Provider
+      value={{ isLoggedIn: isLoggedIn, onLogout: logoutHandler }}
+    >
+      <Layout>
+        <ToastContainer />
+        <Switch>
+          {!isLoggedIn && (
+            <Route path="/" exact>
+              <LoginPage onLogin={loginUserHandler} />
+            </Route>
+          )}
+          {!isLoggedIn && (
+            <Route path="/register">
+              <RegistrationPage />
+            </Route>
+          )}
+          {isLoggedIn && (
+            <Route path="/dashboard">
+              <DashboardPage />
+            </Route>
+          )}
+          {isLoggedIn && (
+            <Route path="/profile">
+              <Profile />
+            </Route>
+          )}
+          {isLoggedIn && (
+            <Route path="/changePassword">
+              <ChangePassword />
+            </Route>
+          )}
+          {!isLoggedIn && (
+            <Route path="/forgot">
+              <ResetPasswordRequest />
+            </Route>
+          )}
+          {!isLoggedIn && (
+            <Route path="/reset_password/:token" component={ResetPassword} />
+          )}
+        </Switch>
+      </Layout>
+    </AuthContext.Provider>
   );
 };
 

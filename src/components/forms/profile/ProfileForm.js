@@ -3,14 +3,13 @@ import validate from "./ValidateProfileForm";
 import Backdrop from "../../delete/Backdrop";
 import Modal from "../../delete/Modal";
 
-import { useState, useEffect, useRef } from "react";
-import { useHistory } from "react-router";
+import { useState, useEffect, useRef, useContext } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
+import AuthContext from "../../../store/AuthContext";
 
 const ProfileForm = (props) => {
-  const history = useHistory();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
@@ -18,6 +17,7 @@ const ProfileForm = (props) => {
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const ctx = useContext(AuthContext);
 
   const deleteAccountHandler = () => {
     setModalIsOpen(true);
@@ -35,8 +35,7 @@ const ProfileForm = (props) => {
       .then((response) => response.json())
       .then((data) => console.log(data))
       .then(() => {
-        sessionStorage.clear();
-        history.replace("/");
+        ctx.onLogout();
         toast.success("Account deleted successfully!");
       });
   };

@@ -1,21 +1,13 @@
 import classes from "./MainNavigation.module.css";
 
-import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { Fragment } from "react";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Fragment, useContext } from "react";
+import AuthContext from "../../store/AuthContext";
 
 const MainNavigation = () => {
-  const history = useHistory();
-
-  const logOutHandler = () => {
-    sessionStorage.clear();
-    history.replace("/");
-    toast.success("Logged out successfully!");
-  };
+  const ctx = useContext(AuthContext);
 
   const loggedInUser = sessionStorage.getItem("username");
 
@@ -45,7 +37,7 @@ const MainNavigation = () => {
                 <Link to="/profile">Profile</Link>
               </li>
               <li>
-                <button className={classes.cta} onClick={logOutHandler}>
+                <button className={classes.cta} onClick={ctx.onLogout}>
                   Log out
                 </button>
               </li>
