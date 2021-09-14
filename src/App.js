@@ -13,8 +13,10 @@ import { useState, useEffect } from "react";
 import AuthContext from "./store/AuthContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loader from "./UI/Loader";
 
 const App = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const history = useHistory();
 
@@ -26,6 +28,7 @@ const App = () => {
   }, []);
 
   function loginUserHandler(userData) {
+    setIsLoading(true);
     fetch(`${process.env.REACT_APP_API_URI}/api/login`, {
       method: "POST",
       body: JSON.stringify(userData),
@@ -38,16 +41,22 @@ const App = () => {
       .then((data) => {
         console.log(data);
         if (data.login === true) {
+          setIsLoading(false);
           sessionStorage.setItem("username", data.username);
           localStorage.setItem("isLoggedIn", "1");
           setIsLoggedIn(true);
           history.replace("/dashboard");
         } else {
+          setIsLoading(false);
           setIsLoggedIn(false);
           history.replace("/");
           toast.error("Wrong Username or Password");
         }
       });
+  }
+
+  if (isLoading) {
+    return <Loader />;
   }
 
   const logoutHandler = () => {
