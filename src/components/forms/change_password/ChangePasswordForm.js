@@ -31,28 +31,24 @@ const ChangePasswordForm = (props) => {
   const newPasswordInputRef = useRef();
 
   useEffect(() => {
-    const doSomething = (errors, isSubmitting, props) => {
-      const loggedInUser = sessionStorage.getItem("username");
+    const loggedInUser = sessionStorage.getItem("username");
 
-      if (Object.keys(errors).length === 0 && isSubmitting) {
-        const enteredOldPassword = oldPasswordInputRef.current.value;
-        const enteredNewPassword = newPasswordInputRef.current.value;
+    if (Object.keys(errors).length === 0 && isSubmitting) {
+      const enteredOldPassword = oldPasswordInputRef.current.value;
+      const enteredNewPassword = newPasswordInputRef.current.value;
 
-        const newUserPassword = {
-          username: loggedInUser,
-          oldPassword: enteredOldPassword,
-          newPassword: enteredNewPassword,
-        };
+      const newUserPassword = {
+        username: loggedInUser,
+        oldPassword: enteredOldPassword,
+        newPassword: enteredNewPassword,
+      };
 
-        props.onChangeUserPassword(newUserPassword);
-        setValues({
-          oldPassword: "",
-          newPassword: "",
-        });
-      }
-    };
-
-    doSomething(errors, isSubmitting, props);
+      props.onChangeUserPassword(newUserPassword);
+      setValues({
+        oldPassword: "",
+        newPassword: "",
+      });
+    }
   }, [errors, isSubmitting, props]);
 
   return (

@@ -29,20 +29,16 @@ const ResetPasswordRequestForm = (props) => {
   const emailInputRef = useRef();
 
   useEffect(() => {
-    const doSomething = (errors, isSubmitting, props) => {
-      if (Object.keys(errors).length === 0 && isSubmitting) {
-        const enteredEmail = emailInputRef.current.value;
+    if (Object.keys(errors).length === 0 && isSubmitting) {
+      const enteredEmail = emailInputRef.current.value;
 
-        const email = enteredEmail;
+      const email = enteredEmail;
 
-        props.onResetPasswordEmail(email);
-        setValues({
-          email: "",
-        });
-      }
-    };
-
-    doSomething(errors, isSubmitting, props);
+      props.onResetPasswordEmail(email);
+      setValues({
+        email: "",
+      });
+    }
   }, [errors, isSubmitting, props]);
 
   return (

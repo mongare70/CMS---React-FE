@@ -3,7 +3,7 @@ import validate from "./ValidateProfileForm";
 import Backdrop from "../../delete/Backdrop";
 import Modal from "../../delete/Modal";
 
-import { useState, useEffect, useRef, useContext } from "react";
+import { useState, useEffect, useRef, useContext, useCallback } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
@@ -23,21 +23,23 @@ const ProfileForm = (props) => {
     setModalIsOpen(true);
   };
 
-  const deleteAccount = () => {
-    fetch(`${process.env.REACT_APP_API_URI}/api/deleteUser`, {
-      method: "POST",
-      body: JSON.stringify(username),
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .then(() => {
-        ctx.onLogout();
-        toast.success("Account deleted successfully!");
-      });
+  const deleteAccount = async () => {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URI}/api/deleteUser`,
+      {
+        method: "POST",
+        body: JSON.stringify(username),
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
+    );
+    const data = await response.json();
+
+    console.log(data);
+    ctx.onLogout();
+    toast.success("Account deleted successfully!");
   };
 
   const closeModalHandler = () => {
@@ -72,59 +74,59 @@ const ProfileForm = (props) => {
   const passwordInputRef = useRef();
 
   useEffect(() => {
-    const doSomething = (errors, isSubmitting, props) => {
-      const loggedInUser = sessionStorage.getItem("username");
+    const loggedInUser = sessionStorage.getItem("username");
 
-      if (Object.keys(errors).length === 0 && isSubmitting) {
-        const enteredFirstName = firstnameInputRef.current.value;
-        const enteredLastName = lastnameInputRef.current.value;
-        const enteredEmail = emailInputRef.current.value;
-        const enteredPassword = passwordInputRef.current.value;
+    if (Object.keys(errors).length === 0 && isSubmitting) {
+      const enteredFirstName = firstnameInputRef.current.value;
+      const enteredLastName = lastnameInputRef.current.value;
+      const enteredEmail = emailInputRef.current.value;
+      const enteredPassword = passwordInputRef.current.value;
 
-        const newUserData = {
-          firstname: enteredFirstName,
-          lastname: enteredLastName,
-          username: loggedInUser,
-          email: enteredEmail,
-          password: enteredPassword,
-        };
+      const newUserData = {
+        firstname: enteredFirstName,
+        lastname: enteredLastName,
+        username: loggedInUser,
+        email: enteredEmail,
+        password: enteredPassword,
+      };
 
-        props.onChangeUserData(newUserData);
-        setValues({
-          firstname: "",
-          lastname: "",
-          email: "",
-          password: "",
-        });
-      }
-    };
-    doSomething(errors, isSubmitting, props);
+      props.onChangeUserData(newUserData);
+      setValues({
+        firstname: "",
+        lastname: "",
+        email: "",
+        password: "",
+      });
+    }
   }, [errors, isSubmitting, props]);
 
-  useEffect(() => {
-    const getUserDataHandler = () => {
-      const loggedInUser = sessionStorage.getItem("username");
+  const getUserDataHandler = useCallback(async () => {
+    const loggedInUser = sessionStorage.getItem("username");
 
-      fetch(`${process.env.REACT_APP_API_URI}/api/getUserData`, {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URI}/api/getUserData`,
+      {
         method: "POST",
         body: JSON.stringify(loggedInUser),
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
         },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          setFirstname(data.firstname);
-          setLastname(data.lastname);
-          setUsername(data.username);
-          setEmail(data.email);
-        });
-    };
+      }
+    );
 
-    getUserDataHandler();
+    const data = await response.json();
+
+    console.log(data);
+    setFirstname(data.firstname);
+    setLastname(data.lastname);
+    setUsername(data.username);
+    setEmail(data.email);
   }, []);
+
+  useEffect(() => {
+    getUserDataHandler();
+  }, [getUserDataHandler]);
 
   return (
     <div className={classes.container}>

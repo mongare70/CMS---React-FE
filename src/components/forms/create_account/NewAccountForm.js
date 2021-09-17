@@ -34,29 +34,25 @@ const NewAccountForm = (props) => {
   const passwordInputRef = useRef();
 
   useEffect(() => {
-    const login = (errors, isSubmitting, props) => {
-      if (Object.keys(errors).length === 0 && isSubmitting) {
-        const enteredUsername = usernameInputRef.current.value;
-        const enteredEmail = emailInputRef.current.value;
-        const enteredPassword = passwordInputRef.current.value;
+    if (Object.keys(errors).length === 0 && isSubmitting) {
+      const enteredUsername = usernameInputRef.current.value;
+      const enteredEmail = emailInputRef.current.value;
+      const enteredPassword = passwordInputRef.current.value;
 
-        const userData = {
-          username: enteredUsername,
-          email: enteredEmail,
-          password: enteredPassword,
-        };
+      const userData = {
+        username: enteredUsername,
+        email: enteredEmail,
+        password: enteredPassword,
+      };
 
-        props.onAddUser(userData);
+      props.onAddUser(userData);
 
-        setValues({
-          username: "",
-          email: "",
-          password: "",
-        });
-      }
-    };
-
-    login(errors, isSubmitting, props);
+      setValues({
+        username: "",
+        email: "",
+        password: "",
+      });
+    }
   }, [errors, isSubmitting, props]);
 
   return (
